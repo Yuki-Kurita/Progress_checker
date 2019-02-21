@@ -10,19 +10,19 @@ $pdo = new PDO($dsn,'tffvdgllqmmidv','88118400b9ed9597af723501e34cb088a37c8031a2
 $channelAccessToken = 'IuFN7z/T5jyFM8qt9e9O8HbSSrUiyt0lx0dK27HOgh0HSh0ZU2N0iCKwr3dZ6kCpmn3Htzcwvz17O74nR1NwKKI3iHEQrc78Vgp6NChh2FR5dTlMH/FZ512x57+6qujaMljp6WXv3fl0ueXKeUsQJwdB04t89/1O/w1cDnyilFU=';
 $channelSecret = 'c4aecec47f9be6f95339cee7918bab2d';
 // flag設定
-if(!isset($_SESSION['addFlag'])){$_SESSION['addFlag'] = false;}
-if(!isset($_SESSION['addSecondFlag'])){$_SESSION['addSecondFlag'] = false;}
-if(!isset($_SESSION['deleteFlag'])){$_SESSION['deleteFlag'] = false;}
-if(!isset($_SESSION['editFlag'])){$_SESSION['editFlag'] = false;}
-if(!isset($_SESSION['editSecondFlag'])){$_SESSION['editSecondFlag'] = false;}
-if(!isset($_SESSION['editThirdFlag'])){$_SESSION['editThirdFlag'] = false;}
-if(!isset($_SESSION['editNameFlag'])){$_SESSION['editNameFlag'] = false;}
-if(!isset($_SESSION['editProgressFlag'])){$_SESSION['editProgressFlag'] = false;}
-if(!isset($_SESSION['editDeadlineFlag'])){$_SESSION['editDeadlineFlag'] = false;}
+// if(!isset($_SESSION['addFlag'])){$_SESSION['addFlag'] = false;}
+// if(!isset($_SESSION['addSecondFlag'])){$_SESSION['addSecondFlag'] = false;}
+// if(!isset($_SESSION['deleteFlag'])){$_SESSION['deleteFlag'] = false;}
+// if(!isset($_SESSION['editFlag'])){$_SESSION['editFlag'] = false;}
+// if(!isset($_SESSION['editSecondFlag'])){$_SESSION['editSecondFlag'] = false;}
+// if(!isset($_SESSION['editThirdFlag'])){$_SESSION['editThirdFlag'] = false;}
+// if(!isset($_SESSION['editNameFlag'])){$_SESSION['editNameFlag'] = false;}
+// if(!isset($_SESSION['editProgressFlag'])){$_SESSION['editProgressFlag'] = false;}
+// if(!isset($_SESSION['editDeadlineFlag'])){$_SESSION['editDeadlineFlag'] = false;}
 // インスタンス生成
 $client = new LINEBotTiny($channelAccessToken, $channelSecret);
 $reply = new replyLineMessage();
-$postDB = new PostgreSqlDB();
+// $postDB = new PostgreSqlDB();
 
 // webhookイベントオブジェクトをパースする
 foreach ($client->parseEvents() as $event) {
