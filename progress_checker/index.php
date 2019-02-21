@@ -47,7 +47,7 @@ foreach ($client->parseEvents() as $event) {
                       }
                     }
                     // タスク追加時の処理3 入力された期限をDBに追加
-                    else if($_SESSION['addSecondFlag']){
+                    elseif($_SESSION['addSecondFlag']){
                       $flag = $postDB->addDeadlineDB($user_id,$message['text'],$_SESSION['addTaskName'],$pdo);
                       // timestamp型になっていてDBを更新できれば以下の処理を行う
                       if($flag){
@@ -61,7 +61,7 @@ foreach ($client->parseEvents() as $event) {
                       }
                     }
                     // タスク追加時の処理2 入力されたタスク名をDBに追加
-                    else if($_SESSION['addFlag']){
+                    elseif($_SESSION['addFlag']){
                       // 追加のキャンセル
                       if(strpos($message['text'],'やめる')!==false){
                         $_SESSION['addFlag'] = false;
@@ -85,7 +85,7 @@ foreach ($client->parseEvents() as $event) {
                     }
 
                     // タスク削除時の処理2
-                    else if($_SESSION['deleteFlag']){
+                    elseif($_SESSION['deleteFlag']){
                       // 削除時に確認と入力された場合
                       if(strpos($message['text'],'確認')!==false){
                         $tasks = $postDB->showTaskDB($user_id,$pdo);
@@ -115,7 +115,7 @@ foreach ($client->parseEvents() as $event) {
                     }
 
                     // タスク編集時の処理4
-                    else if($_SESSION['editThirdFlag']){
+                    elseif($_SESSION['editThirdFlag']){
                       // 編集のキャンセル
                       if(strpos($message['text'],'やめる')!==false){
                         $_SESSION['editThirdFlag'] = false;
@@ -137,7 +137,7 @@ foreach ($client->parseEvents() as $event) {
                           $_SESSION['editThirdFlag'] = false;
                           $_SESSION['editNameFlag'] = false;
                       }
-                      else if($_SESSION['editDeadlineFlag']){
+                      elseif($_SESSION['editDeadlineFlag']){
                         $flag = $postDB->addDeadlineDB($user_id,$message['text'],$_SESSION['beforeTaskName'],$pdo);
                         if($flag){
                           $reply->setMessage('タスクの期限を編集したよ！');
@@ -149,7 +149,7 @@ foreach ($client->parseEvents() as $event) {
                           $reply->replyAuto($client,$event);
                         }
                       }
-                      else if($_SESSION['editGoalFlag']){
+                      elseif($_SESSION['editGoalFlag']){
                         $goal = preg_replace('/[^0-9]/','',$message['text']);
                         $flag = $postDB->addGoalDB($user_id,$goal,$_SESSION['beforeTaskName'],$pdo);
                         if($flag){
@@ -164,7 +164,7 @@ foreach ($client->parseEvents() as $event) {
                       }
                     }
                     // タスク編集時の処理3
-                    else if($_SESSION['editSecondFlag']){
+                    elseif($_SESSION['editSecondFlag']){
                       // 編集のキャンセル
                       if(strpos($message['text'],'やめる')!==false){
                         $_SESSION['editSecondFlag'] = false;
@@ -173,21 +173,21 @@ foreach ($client->parseEvents() as $event) {
                         $reply->replyAuto($client,$event);
                         break;
                       }
-                      else if(strpos($message['text'],'名')!==false){
+                      elseif(strpos($message['text'],'名')!==false){
                         $reply->setMessage('新しいタスク名を入力してね！編集をやめたかったら「やめる」と入力してね。');
                         $reply->replyAuto($client,$event);
                         $_SESSION['editThirdFlag'] = true;
                         $_SESSION['editSecondFlag'] = false;
                         $_SESSION['editNameFlag'] = true;
                       }
-                      else if(strpos($message['text'],'期限')!==false){
+                      elseif(strpos($message['text'],'期限')!==false){
                         $reply->setMessage('新しい期限を入力してね！編集をやめたかったら「やめる」と入力してね。'."\n".'<例>日だけ指定する場合 : 2019-02-26'."\n".'時間も指定する場合 : 2019-02-26 13:00:00');
                         $reply->replyAuto($client,$event);
                         $_SESSION['editThirdFlag'] = true;
                         $_SESSION['editSecondFlag'] = false;
                         $_SESSION['editDeadlineFlag'] = true;
                       }
-                      else if(strpos($message['text'],'目標')!==false){
+                      elseif(strpos($message['text'],'目標')!==false){
                         $reply->setMessage('新しい目標を入力してね！編集をやめたかったら「やめる」と入力してね。'."\n".'<例>勉強の場合 : 200ページ'."\n".'運動の場合 : 100km'."\n".'アプリを開発する : 100%');
                         $reply->replyAuto($client,$event);
                         $_SESSION['editThirdFlag'] = true;
@@ -201,7 +201,7 @@ foreach ($client->parseEvents() as $event) {
                       }
                     }
                     // タスク編集時の処理2
-                    else if($_SESSION['editFlag']){
+                    elseif($_SESSION['editFlag']){
                       // 編集時に確認と入力された場合
                       if(strpos($message['text'],'確認')!==false){
                         $tasks = $postDB->showTaskDB($user_id,$pdo);
@@ -210,7 +210,7 @@ foreach ($client->parseEvents() as $event) {
                         break;
                       }
                       // 編集のキャンセル
-                      else if(strpos($message['text'],'やめる')!==false){
+                      elseif(strpos($message['text'],'やめる')!==false){
                         $_SESSION['editFlag'] = false;
                         $reply->setMessage('タスクの編集をやめたよ');
                         $reply->replyAuto($client,$event);
@@ -230,7 +230,7 @@ foreach ($client->parseEvents() as $event) {
                       }
                     }
                     // 進捗報告の時の処理3
-                    else if($_SESSION['progSecondFlag']){
+                    elseif($_SESSION['progSecondFlag']){
                       if(strpos($message['text'],'やめる')!==false){
                         $_SESSION['progSecondFlag'] = false;
                         $reply->setMessage('進捗報告をやめたよ');
@@ -250,7 +250,7 @@ foreach ($client->parseEvents() as $event) {
                     }
 
                     // 進捗報告の時の処理2
-                    else if($_SESSION['progFlag']){
+                    elseif($_SESSION['progFlag']){
                       if(strpos($message['text'],'確認')!==false){
                         $tasks = $postDB->showTaskDB($user_id,$pdo);
                         $reply->setMessage('あなたのタスクは'.$tasks."\n".'だよ。どのタスクの進捗を報告する？'."\n".'報告をやめる場合は「やめる」と入力してね。');
@@ -277,7 +277,7 @@ foreach ($client->parseEvents() as $event) {
                       }
                     }
                     // タスク確認処理2
-                    else if($_SESSION['showFlag']){
+                    elseif($_SESSION['showFlag']){
                       if(strpos($message['text'],'確認')!==false){
                         $tasks = $postDB->showTaskDB($user_id,$pdo);
                         $reply->setMessage('あなたのタスクは'.$tasks."\n".'だよ。どのタスクを確認する？'."\n".'確認をやめる場合は「やめる」と入力してね。');
@@ -302,13 +302,13 @@ foreach ($client->parseEvents() as $event) {
                       }
                     }
                     // タスク追加の時の処理1
-                    else if(strpos($message['text'],'追加')!==false){
+                    elseif(strpos($message['text'],'追加')!==false){
                       $reply->setMessage('タスクを追加するね！タスク名を入力してね！'."\n".'追加をやめたい場合 :「やめる」'."\n".'と入力してね！');
                       $reply->replyAuto($client,$event);
                       $_SESSION['addFlag'] = true;
                     }
                     // タスク確認処理1
-                    else if(strpos($message['text'],'確認')!==false){
+                    elseif(strpos($message['text'],'確認')!==false){
                       // DBからuser_idに紐づけてタスクを取ってくる
                       $tasks = $postDB->showTaskDB($user_id,$pdo);
                       $reply->setMessage('あなたのタスクは'.$tasks."\n".'さらに詳細を知りたい場合は、タスク名を入力してね！'."\n".'大丈夫なら、「戻る」と入力してね！');
@@ -316,29 +316,29 @@ foreach ($client->parseEvents() as $event) {
                       $_SESSION['showFlag'] = true;
                     }
                     // タスク削除の時の処理1
-                    else if(strpos($message['text'],'削除')!==false){
+                    elseif(strpos($message['text'],'削除')!==false){
                       $reply->setMessage('タスクを削除するね！削除したいタスク名を入力してね！'."\n".'タスク名を知りたい場合 :「タスクを確認する」'."\n".'削除をやめたい場合 :「やめる」'."\n".'と入力してね！');
                       $reply->replyAuto($client,$event);
                       $_SESSION['deleteFlag'] = true;
                     }
                     // タスク編集の時の処理1
-                    else if(strpos($message['text'],'編集')!==false){
+                    elseif(strpos($message['text'],'編集')!==false){
                       $reply->setMessage('タスクを編集するね！編集したいタスク名を入力してね！'."\n".'タスク名を知りたい場合 :「タスクを確認する」'."\n".'編集をやめたい場合 :「やめる」'."\n".'と入力してね！');
                       $reply->replyAuto($client,$event);
                       $_SESSION['editFlag'] = true;
                     }
                     // 進捗報告の時の処理1
-                    else if(strpos($message['text'],'報告')!==false){
+                    elseif(strpos($message['text'],'報告')!==false){
                       $reply->setMessage('お疲れ様！進捗報告したいタスク名を教えてね！'."\n".'タスクを確認したい場合 :「タスクを確認する」'."\n".'進捗報告をやめたい場合 :「やめる」'."\n".'と入力してね！');
                       $reply->replyAuto($client,$event);
                       $_SESSION['progFlag'] = true;
                     }
                     // おふざけ
-                    else if(strpos($message['text'],'るんるん')!==false){
+                    elseif(strpos($message['text'],'るんるん')!==false){
                       $reply->setMessage('るんるんるんるんうるせーんだよぉぉぉぉおおおおお！！！！！！！！');
                       $reply->replyAuto($client,$event);
                     }
-                    else if(strpos($message['text'],'きまた')!==false){
+                    elseif(strpos($message['text'],'きまた')!==false){
                       $reply->replyStamp($client,$event);
                     }
 
