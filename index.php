@@ -1,5 +1,5 @@
 <?php
-  // composerでinstallしたライブラリを一括で読み込む
+  // composerでinstallしたライブラリを一括で読み込む--
   require_once __DIR__ . '/vendor/autoload.php';
 
     // アクセストークンを使いCurlHTTPClientをインスタンス化
