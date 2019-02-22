@@ -77,7 +77,7 @@ class PostgreSqlDB{
     $sql = 'UPDATE task SET prog = ? WHERE user_id = ? AND name = ?';
     $stmt = $pdo -> prepare($sql);
     $flag = $stmt -> execute(array($prog,$user_id,$task_name));
-    return $flag;
+    return array($flag,$prog);
   }
 }
 

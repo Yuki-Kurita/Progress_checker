@@ -239,10 +239,15 @@ foreach ($client->parseEvents() as $event) {
                         break;
                       }
                       $prog = preg_replace('/[^0-9]/','',$message['text']);
-                      $flag = $postDB -> updatePregDB($user_id,$prog,$_SESSION['beforeTaskName'],$pdo);
-                      if($flag){
-                        $reply->setMessage('進捗報告を完了したよ！');
-                        $reply->replyAuto($client,$event);
+                      $sql_list = $postDB -> updatePregDB($user_id,$prog,$_SESSION['beforeTaskName'],$pdo);
+                      if($sql_list[0]){
+                        if($sql_list[1]>=100){
+                          $reply->setMessage('タスクを完了したよ！頑張ったね、お疲れ様！');
+                          $reply->replyAuto($client,$event);
+                        }else{
+                          $reply->setMessage('進捗報告を完了したよ！');
+                          $reply->replyAuto($client,$event);
+                      }
                         $_SESSION['progSecondFlag'] = false;
                       }else{
                         $reply->setMessage('進捗に数値を含ませて！'."\n".'<例>10ページ');
