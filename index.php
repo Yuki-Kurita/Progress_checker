@@ -198,7 +198,7 @@ foreach ($client->parseEvents() as $event) {
                       // 該当する文字が打たれなかった場合
                       else{
                         $reply->setMessage('「タスク名」、「タスクの期限」、「目標」のどれかを入力してね！編集をやめたかったら「やめる」と入力してね。');
-                        $reply->replyAuto($client,$event);
+                        $reply->replyQuickEdit($client,$event);
                       }
                     }
                     // タスク編集時の処理2
@@ -207,7 +207,7 @@ foreach ($client->parseEvents() as $event) {
                       if(strpos($message['text'],'確認')!==false){
                         $tasks = $postDB->showTaskDB($user_id,$pdo);
                         $reply->setMessage('あなたのタスクは'.$tasks."\n".'だよ。何を編集する？'."\n".'編集をやめる場合は「やめる」と入力してね。');
-                        $reply->replyAuto($client,$event);
+                        $reply->replyQuickCheck($client,$event,$user_id,$pdo);
                         break;
                       }
                       // 編集のキャンセル
@@ -221,13 +221,13 @@ foreach ($client->parseEvents() as $event) {
                       $data_count=$postDB->checkTaskDB($user_id,$message['text'],$pdo);
                       if($data_count !== 0){
                         $reply->setMessage('タスク名、タスクの期限、目標を編集できるよ。編集したいことを入力してね！'."\n".'例 : タスク名'."\n".'また、編集をやめたかったら「やめる」と入力してね。');
-                        $reply->replyAuto($client,$event);
+                        $reply->replyQuickEdit($client,$event);
                         $_SESSION['editFlag'] = false;
                         $_SESSION['editSecondFlag'] = true;
                         $_SESSION['beforeTaskName'] = $message['text'];
                     }else{
                       $reply->setMessage('入力してくれたタスク名は存在しないよ。タスクを確認したい場合は「確認する」と入力してね！');
-                      $reply->replyAuto($client,$event);
+                      $reply->replyQuickCheck($client,$event,$user_id,$pdo);
                       }
                     }
                     // 進捗報告の時の処理3
@@ -260,7 +260,7 @@ foreach ($client->parseEvents() as $event) {
                       if(strpos($message['text'],'確認')!==false){
                         $tasks = $postDB->showTaskDB($user_id,$pdo);
                         $reply->setMessage('あなたのタスクは'.$tasks."\n".'だよ。どのタスクの進捗を報告する？'."\n".'報告をやめる場合は「やめる」と入力してね。');
-                        $reply->replyAuto($client,$event);
+                        $reply->replyQuick($client,$event,$user_id,$pdo);
                         break;
                       }
                       if(strpos($message['text'],'やめる')!==false){
@@ -275,11 +275,11 @@ foreach ($client->parseEvents() as $event) {
                         $_SESSION['progFlag'] = false;
                         $_SESSION['beforeTaskName'] = $message['text'];
                         $reply->setMessage('前回報告してくれた時からの進捗状況を教えてね'."\n".'<例>10ページ'."\n".'進捗報告をやめたい場合 :「やめる」'."\n".'と入力してね！');
-                        $reply->replyAuto($client,$event);
+                        $reply->replyQuickCancel($client,$event);
                       }
                       else{
                         $reply->setMessage('そのタスクは存在しないよ。'."\n".'タスクを確認したい場合 : 「タスクを確認する」'."\n".'進捗報告をやめたい場合 :「やめる」'."\n".'と入力してね！');
-                        $reply->replyAuto($client,$event);
+                        $reply->replyQuickCheck($client,$event,$user_id,$pdo);
                       }
                     }
                     // タスク確認処理2
@@ -287,7 +287,7 @@ foreach ($client->parseEvents() as $event) {
                       if(strpos($message['text'],'確認')!==false){
                         $tasks = $postDB->showTaskDB($user_id,$pdo);
                         $reply->setMessage('あなたのタスクは'.$tasks."\n".'だよ。どのタスクを確認する？'."\n".'確認をやめる場合は「やめる」と入力してね。');
-                        $reply->replyAuto($client,$event);
+                        $reply->replyQuick($client,$event,$user_id,$pdo);
                         break;
                       }
                       if(strpos($message['text'],'やめる')!==false){
@@ -305,13 +305,13 @@ foreach ($client->parseEvents() as $event) {
                       }
                       else{
                         $reply->setMessage('そのタスクは存在しないよ。'."\n".'タスクを確認したい場合 : 「タスクを確認する」'."\n".'進捗報告をやめたい場合 :「やめる」'."\n".'と入力してね！');
-                        $reply->replyAuto($client,$event);
+                        $reply->replyQuickCheck($client,$event,$user_id,$pdo);
                       }
                     }
                     // タスク追加の時の処理1
                     elseif(strpos($message['text'],'追加')!==false){
                       $reply->setMessage('タスクを追加するね！タスク名を入力してね！'."\n".'追加をやめたい場合 :「やめる」'."\n".'と入力してね！');
-                      $reply->replyAuto($client,$event);
+                      $reply->replyQuickCancel($client,$event);
                       $_SESSION['addFlag'] = true;
                     }
                     // タスク確認処理1
@@ -319,19 +319,19 @@ foreach ($client->parseEvents() as $event) {
                       // DBからuser_idに紐づけてタスクを取ってくる
                       $tasks = $postDB->showTaskDB($user_id,$pdo);
                       $reply->setMessage('あなたのタスクは'.$tasks."\n".'さらに詳細を知りたい場合は、タスク名を入力してね！'."\n".'大丈夫なら、「やめる」と入力してね！');
-                      $reply->replyAuto($client,$event);
+                      $reply->replyQuick($client,$event,$user_id,$pdo);
                       $_SESSION['showFlag'] = true;
                     }
                     // タスク削除の時の処理1
                     elseif(strpos($message['text'],'削除')!==false){
                       $reply->setMessage('タスクを削除するね！削除したいタスク名を入力してね！'."\n".'タスク名を知りたい場合 :「タスクを確認する」'."\n".'削除をやめたい場合 :「やめる」'."\n".'と入力してね！');
-                      $reply->replyAuto($client,$event);
+                      $reply->replyQuickCheck($client,$event,$user_id,$pdo);
                       $_SESSION['deleteFlag'] = true;
                     }
                     // タスク編集の時の処理1
                     elseif(strpos($message['text'],'編集')!==false){
                       $reply->setMessage('タスクを編集するね！編集したいタスク名を入力してね！'."\n".'タスク名を知りたい場合 :「タスクを確認する」'."\n".'編集をやめたい場合 :「やめる」'."\n".'と入力してね！');
-                      $reply->replyAuto($client,$event);
+                      $reply->replyQuick($client,$event,$user_id,$pdo);
                       $_SESSION['editFlag'] = true;
                     }
                     // 進捗報告の時の処理1
@@ -351,7 +351,7 @@ foreach ($client->parseEvents() as $event) {
 
                     // ユーザーに対する返事
                     $reply->setMessage('タスクの追加 : 「タスクを追加する」と入力してね！'."\n".'タスクの削除 : 「タスクを削除する」と入力してね！'."\n".'タスクの編集 : 「タスクを編集する」と入力してね！'."\n".'タスクの確認 : 「タスクを確認する」と入力してね！'."\n".'タスクの進捗報告 : 「報告する」と入力してね！');
-                    $reply->replyAuto($client,$event);
+                    $reply->replyQuickStart($client,$event);
                     break;
                 default:
                     error_log('Unsupported message type: ' . $message['type']);
