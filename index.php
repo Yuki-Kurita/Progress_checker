@@ -100,10 +100,11 @@ foreach ($client->parseEvents() as $event) {
                         $reply->replyAuto($client,$event);
                         break;
                       }
-                      // データの削除
-                      $flag = $postDB->deleteTaskDB($message['text'],$pdo);
+                      $count = $postDB->checkTaskDB($user_id,$message['text'],$pdo);
                       // task削除成功時の処理
-                      if(true){
+                      if($count !== 0){
+                        // データの削除
+                        $flag = $postDB->deleteTaskDB($message['text'],$pdo);
                         $reply->setMessage('「'.$message['text'].'」のタスクを削除したよ！');
                         $reply->replyAuto($client,$event);
                       }
