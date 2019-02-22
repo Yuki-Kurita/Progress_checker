@@ -362,36 +362,36 @@ foreach ($client->parseEvents() as $event) {
             $follow = $event['follow'];
             // $reply->setMessage('友達追加ありがとう!'."\n".'このアプリはあなたのタスクの進捗管理をしてくれるよ！早速タスクを追加してみよう！'."\n\n".'タスクの追加 : 「タスクを追加する」と入力してね！'."\n".'タスクの削除 : 「タスクを削除する」と入力してね！'."\n".'タスクの編集 : 「タスクを編集する」と入力してね！'."\n".'タスクの確認 : 「タスクを確認する」と入力してね！'."\n".'タスクの進捗報告 : 「報告する」と入力してね！');
             // $reply->replyAuto($client,$event);
-        $client->replyMessage
+        $client->replyMessage([
         'replyToken'=> $event['replyToken'],
         'messages'=> [
-          {
+          [
       # ここがメインのメッセージ情報
             'type'=> 'text',
             'text'=> 'あなたは犬ですか？',
       # クイックリプライボタンを表示させる情報（この例では2つのボタンを表示）を付加して一緒にsendする
-            'quickReply'=> {
+            'quickReply'=> [
               'items'=> [
-                {
+                [
                   'type'=> 'action',
-                  'action'=> {
+                  'action'=> [
                     'type'=> 'message',
                     'label'=> 'はい',
                     'text'=> 'はい'
-                  }
-                },
-                {
+                  ]
+                ],
+                [
                   'type'=> 'action',
-                  'action'=> {
+                  'action'=> [
                     'type'=> 'message',
                     'label'=> 'ワン',
                     'text'=> 'ワン'
-                  }
-                }
+                  ]
+                ]
               ]
-            }
-          }
-        ]
+            ]
+          ]
+        ]]);
 
 
             break;
