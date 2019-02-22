@@ -16,7 +16,7 @@ class PostgreSqlDB{
   }
 
   public function showTaskDB($user_id,$pdo){
-    $sql ='SELECT * FROM task WHERE user_id=? AND prog = 0';
+    $sql ='SELECT * FROM task WHERE user_id=?';
     $stmt = $pdo -> prepare($sql);
     $stmt -> execute(array($user_id));
     $tasks = '';
