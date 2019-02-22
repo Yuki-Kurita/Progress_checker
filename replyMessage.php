@@ -88,7 +88,7 @@ class replyLineMessage{
     ]]);
   }
 
-  public function replyQuickCheck($client,$event,$user_id){
+  public function replyQuickCheck($client,$event,$user_id,$pdo){
     $sql = 'SELECT * FROM task WHERE user_id = ? AND prog < 100';
     $stmt = $pdo -> prepare($sql);
     $stmt -> execute(array($user_id));
