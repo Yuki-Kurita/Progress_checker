@@ -33,4 +33,37 @@ class replyLineMessage{
   }
 }
 
+  public function startQuickReply($client,$event){
+    $client->replyMessage([
+    'replyToken'=> $event['replyToken'],
+    'messages'=> [
+      [
+    # ここがメインのメッセージ情報
+        'type'=> 'text',
+        'text'=> $this->message,
+    # クイックリプライボタンを表示させる情報（この例では2つのボタンを表示）を付加して一緒にsendする
+        'quickReply'=> [
+          'items'=> [
+            [
+              'type'=> 'action',
+              'action'=> [
+                'type'=> 'message',
+                'label'=> 'はい',
+                'text'=> 'はい'
+              ]
+            ],
+            [
+              'type'=> 'action',
+              'action'=> [
+                'type'=> 'message',
+                'label'=> 'ワン',
+                'text'=> 'ワン'
+              ]
+            ]
+          ]
+        ]
+      ]
+    ]]);
+
+
  ?>
