@@ -97,7 +97,7 @@ class replyLineMessage{
       $name = $task['name'];
       array_push($json_task, ['type'=>'action','action'=>['type'=>'message','label'=>"$name",'text'=>"$name"]]);
     }
-    array_push($json_task,['type'=>'action','action'=>['type'=>'message','label'=>'確認','text'=>'確認']],['type'=>'action','action'=>['type'=>'message','label'=>'やめる','text'=>'やめる']])
+    array_push($json_task,['type'=>'action','action'=>['type'=>'message','label'=>'確認','text'=>'確認']],['type'=>'action','action'=>['type'=>'message','label'=>'やめる','text'=>'やめる']]);
     $client->replyMessage([
     'replyToken'=> $event['replyToken'],
     'messages'=> [
@@ -109,7 +109,6 @@ class replyLineMessage{
         'quickReply'=> [
           'items'=>
             $json_task
-
         ]
       ]
     ]]);
