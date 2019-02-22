@@ -1,4 +1,4 @@
-<?php
+t<?php
 session_start();
 require_once('./LINEBotTiny.php');
 require 'general.php';
