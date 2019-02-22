@@ -89,12 +89,14 @@ class replyLineMessage{
   }
 
   public function replyQuickCheck($client,$event,$user_id,$pdo){
+    $json_task = array();
     $sql = 'SELECT * FROM task WHERE user_id = ? AND prog < 100';
     $stmt = $pdo -> prepare($sql);
     $stmt -> execute(array($user_id));
-    $all = $stmt->fetchAll();
-    $json_task = ['type'=>'action','action'=>['type'=>'message','label'=>'a','text'=>'a']];
-
+    foreach($stmt as $task){
+      $name = $task['name'];
+      array_push($json_task, ['type'=>'action','action'=>['type'=>'message','label'=>"$name",'text'=>"$name"]]);
+    }
     $client->replyMessage([
     'replyToken'=> $event['replyToken'],
     'messages'=> [
@@ -104,25 +106,9 @@ class replyLineMessage{
         'text'=> $this->message,
   # クイックリプライボタンを表示させる情報（この例では2つのボタンを表示）を付加して一緒にsendする
         'quickReply'=> [
-          'items'=> [
-            [
-              'type'=> 'action',
-              'action'=> [
-                'type'=> 'message',
-                'label'=> '確認',
-                'text'=> '確認'
-              ]
-            ],
-            [
-              'type'=> 'action',
-              'action'=> [
-                'type'=> 'message',
-                'label'=> 'やめる',
-                'text'=> 'やめる'
-              ]
-            ],
+          'items'=>
             $json_task
-          ]
+
         ]
       ]
     ]]);
