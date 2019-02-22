@@ -57,12 +57,74 @@ class replyLineMessage{
                 'label'=> '削除',
                 'text'=> '削除'
               ]
+            ],
+            [
+              'type'=> 'action',
+              'action'=> [
+                'type'=> 'message',
+                'label'=> '編集',
+                'text'=> '編集'
+              ]
+            ],
+            [
+              'type'=> 'action',
+              'action'=> [
+                'type'=> 'message',
+                'label'=> '確認',
+                'text'=> '確認'
+              ]
+            ],
+            [
+              'type'=> 'action',
+              'action'=> [
+                'type'=> 'message',
+                'label'=> '報告',
+                'text'=> '報告'
+              ]
             ]
           ]
         ]
       ]
     ]]);
   }
+
+  public function replyQuickCheck($client,$event){
+    $json_array = ['type'=>'action','action'=>['type'=>'message','label'=>'a','text'=>'a']];
+
+    $client->replyMessage([
+    'replyToken'=> $event['replyToken'],
+    'messages'=> [
+      [
+  # ここがメインのメッセージ情報
+        'type'=> 'text',
+        'text'=> $this->message,
+  # クイックリプライボタンを表示させる情報（この例では2つのボタンを表示）を付加して一緒にsendする
+        'quickReply'=> [
+          'items'=> [
+            [
+              'type'=> 'action',
+              'action'=> [
+                'type'=> 'message',
+                'label'=> '確認',
+                'text'=> '確認'
+              ]
+            ],
+            [
+              'type'=> 'action',
+              'action'=> [
+                'type'=> 'message',
+                'label'=> 'やめる',
+                'text'=> 'やめる'
+              ]
+            ],
+            $json
+          ]
+        ]
+      ]
+    ]]);
+  }
+
+
 }
 
 
