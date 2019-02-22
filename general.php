@@ -39,7 +39,7 @@ class PostgreSqlDB{
   }
 
   public function checkTaskDB($user_id,$task_name,$pdo){
-    $sql = 'SELECT * FROM task WHERE user_id = ? AND name = ? AND prog < ?';
+    $sql = 'SELECT * FROM task WHERE user_id = ? AND name = ?';
     $stmt = $pdo -> prepare($sql);
     $stmt -> execute(array($user_id,$task_name,100));
     $all = $stmt->fetchAll();
