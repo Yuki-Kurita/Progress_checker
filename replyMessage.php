@@ -117,7 +117,7 @@ class replyLineMessage{
                 'text'=> 'やめる'
               ]
             ],
-            $json
+            $json_array
           ]
         ]
       ]

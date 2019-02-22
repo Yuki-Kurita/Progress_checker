@@ -337,7 +337,7 @@ foreach ($client->parseEvents() as $event) {
                     // 進捗報告の時の処理1
                     elseif(strpos($message['text'],'報告')!==false){
                       $reply->setMessage('お疲れ様！進捗報告したいタスク名を教えてね！'."\n".'タスクを確認したい場合 :「タスクを確認する」'."\n".'進捗報告をやめたい場合 :「やめる」'."\n".'と入力してね！');
-                      $reply->replyAuto($client,$event);
+                      $reply->replyQuickCheck($client,$event);
                       $_SESSION['progFlag'] = true;
                     }
                     // おふざけ
