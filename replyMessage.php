@@ -88,8 +88,12 @@ class replyLineMessage{
     ]]);
   }
 
-  public function replyQuickCheck($client,$event){
-    $json_array = ['type'=>'action','action'=>['type'=>'message','label'=>'a','text'=>'a']];
+  public function replyQuickCheck($client,$event,$user_id){
+    $sql = 'SELECT * FROM task WHERE user_id = ? AND prog < 100';
+    $stmt = $pdo -> prepare($sql);
+    $stmt -> execute(array($user_id));
+    $all = $stmt->fetchAll();
+    $json_task = ['type'=>'action','action'=>['type'=>'message','label'=>'a','text'=>'a']];
 
     $client->replyMessage([
     'replyToken'=> $event['replyToken'],
@@ -117,7 +121,7 @@ class replyLineMessage{
                 'text'=> 'やめる'
               ]
             ],
-            $json_array
+            $json_task
           ]
         ]
       ]
