@@ -109,7 +109,7 @@ foreach ($client->parseEvents() as $event) {
                         $reply->replyAuto($client,$event);
                       }
                       else{
-                        $reply->setMessage('タスクの削除に失敗したよ。ごめんね。');
+                        $reply->setMessage('そのタスクは存在しないよ。');
                         $reply->replyAuto($client,$event);
                       }
                       $_SESSION['deleteFlag'] = false;
