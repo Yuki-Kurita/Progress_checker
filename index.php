@@ -100,7 +100,7 @@ foreach ($client->parseEvents() as $event) {
                         $reply->replyAuto($client,$event);
                         break;
                       }
-                      $count = $postDB->checkTaskDB($user_id,$message['task'],$pdo);
+                      $count = $postDB->checkTaskDB($user_id,$message['text'],$pdo);
                       // task削除成功時の処理
                       elseif($count !== 0){
                         // データの削除
