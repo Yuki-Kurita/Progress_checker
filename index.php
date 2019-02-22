@@ -293,9 +293,9 @@ foreach ($client->parseEvents() as $event) {
                       $check = $postDB->checkTaskDB($user_id,$message['text'],$pdo);
                       if($check !== 0){
                         $_SESSION['showFlag'] = false;
-                        // $detail = $postDB->detailShowDB($user_id,$message['text'],$pdo);
-                        // $reply->setMessage("タスク名 : $message['text']"."\n"."期限 : $detail['deadline']"."\n"."目標 : $detail['goal']"."\n"."進捗率 : $detail['prog']");
-                        // $reply->replyAuto($client,$event);
+                        $detail = $postDB->detailShowDB($user_id,$message['text'],$pdo);
+                        $reply->setMessage("タスク名 : ".$message['text']."\n"."期限 : ".$detail['deadline']."\n"."目標 : ".$detail['goal']."\n"."進捗率 : ".$detail['prog']);
+                        $reply->replyAuto($client,$event);
                       }
                       else{
                         $reply->setMessage('そのタスクは存在しないよ。'."\n".'タスクを確認したい場合 : 「タスクを確認する」'."\n".'進捗報告をやめたい場合 :「やめる」'."\n".'と入力してね！');
