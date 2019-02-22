@@ -16,9 +16,9 @@ class PostgreSqlDB{
   }
 
   public function showTaskDB($user_id,$pdo){
-    $sql ='SELECT * FROM task WHERE user_id=? AND prog < ?';
+    $sql ='SELECT * FROM task WHERE user_id=? and prog<100';
     $stmt = $pdo -> prepare($sql);
-    $stmt -> execute(array($user_id,100));
+    $stmt -> execute(array($user_id));
     $tasks = '';
     foreach($stmt as $task){
       if($task['prog']){
@@ -39,7 +39,7 @@ class PostgreSqlDB{
   }
 
   public function checkTaskDB($user_id,$task_name,$pdo){
-    $sql = 'SELECT * FROM task WHERE user_id = ? AND name = ? AND prog <= 100';
+    $sql = 'SELECT * FROM task WHERE user_id = ? AND name = ? AND prog < 100';
     $stmt = $pdo -> prepare($sql);
     $stmt -> execute(array($user_id,$task_name));
     $all = $stmt->fetchAll();
@@ -47,7 +47,7 @@ class PostgreSqlDB{
   }
 
   public function detailShowDB($user_id,$task_name,$pdo){
-    $sql = 'SELECT * FROM task WHERE user_id = ? AND name = ? AND prog <= 100';
+    $sql = 'SELECT * FROM task WHERE user_id = ? AND name = ? AND prog < 100';
     $stmt = $pdo -> prepare($sql);
     $stmt -> execute(array($user_id,$task_name));
     $all = $stmt->fetchAll();
