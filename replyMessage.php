@@ -31,8 +31,6 @@ class replyLineMessage{
         ]
     ]);
   }
-}
-
   public function replyQuickStart($client,$event){
     $client->replyMessage([
     'replyToken'=> $event['replyToken'],
@@ -40,7 +38,7 @@ class replyLineMessage{
       [
   # ここがメインのメッセージ情報
         'type'=> 'text',
-        'text'=> 'あなたは犬ですか？',
+        'text'=> $this->message,
   # クイックリプライボタンを表示させる情報（この例では2つのボタンを表示）を付加して一緒にsendする
         'quickReply'=> [
           'items'=> [
@@ -48,16 +46,16 @@ class replyLineMessage{
               'type'=> 'action',
               'action'=> [
                 'type'=> 'message',
-                'label'=> 'はい',
-                'text'=> 'はい'
+                'label'=> '追加',
+                'text'=> '追加'
               ]
             ],
             [
               'type'=> 'action',
               'action'=> [
                 'type'=> 'message',
-                'label'=> 'ワン',
-                'text'=> 'ワン'
+                'label'=> '削除',
+                'text'=> '削除'
               ]
             ]
           ]
@@ -65,5 +63,6 @@ class replyLineMessage{
       ]
     ]]);
   }
+
 
  ?>
