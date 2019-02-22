@@ -13,27 +13,7 @@ class replyLineMessage{
             [
                 'type' => 'text',
                 // ここで返事する内容を決める
-                'text' => $this->message,
-                'quickReply': {
-        'items': [
-          {
-            'type': 'action',
-            'action': {
-              'type': 'message',
-              'label': 'はい',
-              'text': 'はい'
-            }
-          },
-          {
-            'type': 'action',
-            'action': {
-              'type': 'message',
-              'label': 'ワン',
-              'text': 'ワン'
-            }
-          }
-        ]
-      }
+                'text' => $this->message
             ]
         ]
     ]);
