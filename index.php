@@ -94,7 +94,7 @@ foreach ($client->parseEvents() as $event) {
                         break;
                       }
                       // 削除のキャンセル
-                      if(strpos($message['text'],'やめる')!==false){
+                      elseif(strpos($message['text'],'やめる')!==false){
                         $_SESSION['deleteFlag'] = false;
                         $reply->setMessage('タスクの削除をやめたよ');
                         $reply->replyAuto($client,$event);
