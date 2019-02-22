@@ -103,11 +103,11 @@ foreach ($client->parseEvents() as $event) {
                       // データの削除
                       $flag = $postDB->deleteTaskDB($message['text'],$pdo);
                       // task削除成功時の処理
-                      elseif(true){
+                      if(true){
                         $reply->setMessage('「'.$message['text'].'」のタスクを削除したよ！');
                         $reply->replyAuto($client,$event);
                       }
-                      elseif(true){
+                      else{
                         $reply->setMessage('タスクの削除に失敗したよ。ごめんね。');
                         $reply->replyAuto($client,$event);
                       }
