@@ -94,16 +94,17 @@ foreach ($client->parseEvents() as $event) {
                         break;
                       }
                       // 削除のキャンセル
-                      if(strpos($message['text'],'やめる')!==false){
+                      elseif(strpos($message['text'],'やめる')!==false){
                         $_SESSION['deleteFlag'] = false;
                         $reply->setMessage('タスクの削除をやめたよ');
                         $reply->replyAuto($client,$event);
                         break;
                       }
-                      // データの削除
-                      $flag = $postDB->deleteTaskDB($message['text'],$pdo);
+                      $count = $postDB->checkTaskDB($user_id,$message['task'],$pdo);
                       // task削除成功時の処理
-                      if($flag){
+                      elseif($count !== 0){
+                        // データの削除
+                        $flag = $postDB->deleteTaskDB($message['text'],$pdo);
                         $reply->setMessage('「'.$message['text'].'」のタスクを削除したよ！');
                         $reply->replyAuto($client,$event);
                       }
