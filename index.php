@@ -90,7 +90,7 @@ foreach ($client->parseEvents() as $event) {
                       if(strpos($message['text'],'確認')!==false){
                         $tasks = $postDB->showTaskDB($user_id,$pdo);
                         $reply->setMessage('あなたのタスクは'.$tasks."\n".'だよ。何を削除する？'."\n".'削除をやめる場合は「やめる」と入力してね。');
-                        $reply->replyAuto($client,$event);
+                        $reply->replyQuick($client,$event,$user_id,$pdo);
                         break;
                       }
                       // 削除のキャンセル
@@ -176,21 +176,21 @@ foreach ($client->parseEvents() as $event) {
                       }
                       else if(strpos($message['text'],'名')!==false){
                         $reply->setMessage('新しいタスク名を入力してね！編集をやめたかったら「やめる」と入力してね。');
-                        $reply->replyAuto($client,$event);
+                        $reply->replyQuickCancel($client,$event);
                         $_SESSION['editThirdFlag'] = true;
                         $_SESSION['editSecondFlag'] = false;
                         $_SESSION['editNameFlag'] = true;
                       }
                       else if(strpos($message['text'],'期限')!==false){
                         $reply->setMessage('新しい期限を入力してね！編集をやめたかったら「やめる」と入力してね。'."\n".'<例>日だけ指定する場合 : 2019-02-26'."\n".'時間も指定する場合 : 2019-02-26 13:00:00');
-                        $reply->replyAuto($client,$event);
+                        $reply->replyQuickCancel($client,$event);
                         $_SESSION['editThirdFlag'] = true;
                         $_SESSION['editSecondFlag'] = false;
                         $_SESSION['editDeadlineFlag'] = true;
                       }
                       else if(strpos($message['text'],'目標')!==false){
                         $reply->setMessage('新しい目標を入力してね！編集をやめたかったら「やめる」と入力してね。'."\n".'<例>勉強の場合 : 200ページ'."\n".'運動の場合 : 100km'."\n".'アプリを開発する : 100%');
-                        $reply->replyAuto($client,$event);
+                        $reply->replyQuickCancel($client,$event);
                         $_SESSION['editThirdFlag'] = true;
                         $_SESSION['editSecondFlag'] = false;
                         $_SESSION['editGoalFlag'] = true;
