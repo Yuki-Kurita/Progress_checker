@@ -94,7 +94,7 @@ foreach ($client->parseEvents() as $event) {
                         break;
                       }
                       // 削除のキャンセル
-                      elseif(strpos($message['text'],'やめる')!==false){
+                      if(strpos($message['text'],'やめる')!==false){
                         $_SESSION['deleteFlag'] = false;
                         $reply->setMessage('タスクの削除をやめたよ');
                         $reply->replyAuto($client,$event);
@@ -103,7 +103,7 @@ foreach ($client->parseEvents() as $event) {
                       // データの削除
                       $flag = $postDB->deleteTaskDB($message['text'],$pdo);
                       // task削除成功時の処理
-                      elseif($flag){
+                      if($flag){
                         $reply->setMessage('「'.$message['text'].'」のタスクを削除したよ！');
                         $reply->replyAuto($client,$event);
                       }
