@@ -4,11 +4,11 @@ require_once('./LINEBotTiny.php');
 require 'general.php';
 require 'replyMessage.php';
 // DB設定
-$dsn = 'pgsql:host=ec2-23-23-184-76.compute-1.amazonaws.com;port=5432;dbname=d1nbjabuc7kqdn';
-$pdo = new PDO($dsn,'tffvdgllqmmidv','88118400b9ed9597af723501e34cb088a37c8031a2fcfcb79a894293fb778694');
+$dsn = 'xxx';
+$pdo = new PDO($dsn,'username','password');
 
-$channelAccessToken = 'IuFN7z/T5jyFM8qt9e9O8HbSSrUiyt0lx0dK27HOgh0HSh0ZU2N0iCKwr3dZ6kCpmn3Htzcwvz17O74nR1NwKKI3iHEQrc78Vgp6NChh2FR5dTlMH/FZ512x57+6qujaMljp6WXv3fl0ueXKeUsQJwdB04t89/1O/w1cDnyilFU=';
-$channelSecret = 'c4aecec47f9be6f95339cee7918bab2d';
+$channelAccessToken = 'xxx';
+$channelSecret = 'xxx';
 // flag設定
 if(!isset($_SESSION['addFlag'])){$_SESSION['addFlag'] = false;}
 if(!isset($_SESSION['addSecondFlag'])){$_SESSION['addSecondFlag'] = false;}
