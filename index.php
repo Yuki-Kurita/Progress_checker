@@ -3,7 +3,7 @@ session_start();
 require_once('./LINEBotTiny.php');
 require 'general.php';
 require 'replyMessage.php';
-// DB設
+// DB設定
 $dsn = 'pgsql:host=ec2-23-23-184-76.compute-1.amazonaws.com;port=5432;dbname=d1nbjabuc7kqdn';
 $pdo = new PDO($dsn,'tffvdgllqmmidv','88118400b9ed9597af723501e34cb088a37c8031a2fcfcb79a894293fb778694');
 
@@ -285,7 +285,7 @@ foreach ($client->parseEvents() as $event) {
                         break;
                       }
                       if(strpos($message['text'],'やめる')!==false){
-                        $_SESSION['progFlag'] = false;
+                        $_SESSION['showFlag'] = false;
                         $reply->setMessage('タスクの確認をやめたよ');
                         $reply->replyAuto($client,$event);
                         break;
@@ -293,7 +293,7 @@ foreach ($client->parseEvents() as $event) {
                       $check = $postDB->checkTaskDB($user_id,$message['text'],$pdo);
                       if($check !== 0){
                         $_SESSION['showFlag'] = false;
-                        $reply->setMessage('あ');
+                        $reply->setMessage("タスク名 : $message['text']"."\n"."期限 : "."\n"."目標 : "."\n"."進捗率");
                         $reply->replyAuto($client,$event);
                       }
                       else{
@@ -311,7 +311,7 @@ foreach ($client->parseEvents() as $event) {
                     if(strpos($message['text'],'確認')!==false){
                       // DBからuser_idに紐づけてタスクを取ってくる
                       $tasks = $postDB->showTaskDB($user_id,$pdo);
-                      $reply->setMessage('あなたのタスクは'.$tasks."\n".'さらに詳細を知りたい場合は、タスク名を入力してね！'."\n".'大丈夫なら、「戻る」と入力してね！');
+                      $reply->setMessage('あなたのタスクは'.$tasks."\n".'さらに詳細を知りたい場合は、タスク名を入力してね！'."\n".'大丈夫なら、「やめる」と入力してね！');
                       $reply->replyAuto($client,$event);
                       $_SESSION['showFlag'] = true;
                     }
